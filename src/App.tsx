@@ -5,7 +5,7 @@ import {
   BriefcaseMedical, MessageCircle, Info, Loader2
 } from 'lucide-react';
 
-// === Pega aquí tu link de Google Sheets (Publicado como TSV) ===
+// === Tu link de Google Sheets (Publicado como TSV) ===
 const GOOGLE_SHEET_TSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTrSr2s24UwlJychVsRrNlDxRjnAeaEIxJPLI9ngHIa3n3PITGiozOAPAe5YY1yRjB9rLGKTnWHGVoy/pub?output=tsv';
 
 const categories = ['Todos', 'Salud', 'Dental', 'Ópticas', 'Estética', 'Bienestar', 'Mascotas', 'Otros'];
@@ -25,24 +25,17 @@ const getIconForCategory = (category?: string) => {
 
 export default function App() {
   const [conveniosData, setConveniosData] = useState<any[]>([]);
-  const [searchTerm, setSearchTerm] = useState('');
-  const [activeCategory, setActiveCategory] = useState('Todos');
-  const [loading, setLoading] = useState(true);
-  const [errorMsg, setErrorMsg] = useState(''); // Nuevo estado para capturar errores
+  const [searchTerm, setSearchTerm] = useState<string>('');
+  const [activeCategory, setActiveCategory] = useState<string>('Todos');
+  const [loading, setLoading] = useState<boolean>(true);
+  const [errorMsg, setErrorMsg] = useState<string>('');
 
-  // Efecto para descargar los datos de Google Sheets al abrir la app
+  // Efecto para descargar los datos de Google Sheets
   useEffect(() => {
     const fetchDatos = async () => {
       try {
-        if (GOOGLE_SHEET_TSV_URL === 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTrSr2s24UwlJychVsRrNlDxRjnAeaEIxJPLI9ngHIa3n3PITGiozOAPAe5YY1yRjB9rLGKTnWHGVoy/pub?output=tsv') {
-          setLoading(false);
-          return;
-        }
-
-        // Agregamos un timestamp para burlar el caché de Google y traer siempre lo más nuevo
-        const urlWithCacheBuster = GOOGLE_SHEET_TSV_URL.includes('?') 
-          ? `${GOOGLE_SHEET_TSV_URL}&t=${new Date().getTime()}`
-          : `${GOOGLE_SHEET_TSV_URL}?t=${new Date().getTime()}`;
+        // Truco para evitar el caché de Google (Concatenamos directamente para evitar fallos de TS)
+        const urlWithCacheBuster = String(GOOGLE_SHEET_TSV_URL) + '&t=' + String(new Date().getTime());
 
         const response = await fetch(urlWithCacheBuster);
         
@@ -52,16 +45,15 @@ export default function App() {
 
         const text = await response.text();
         
-        // Verificar si Google devolvió HTML por error (pasa si el doc no está "Publicado" correctamente)
+        // Verificar si Google devolvió HTML por error
         if (text.trim().toLowerCase().startsWith('<!doctype html>') || text.trim().toLowerCase().startsWith('<html')) {
-          throw new Error('Google devolvió una página web. Verifica en Google Sheets que hiciste clic en "Archivo > Compartir > Publicar en la Web".');
+          throw new Error('Google devolvió una página web. Verifica en Google Sheets que está publicado como TSV.');
         }
 
-        // Hacemos que la app sea inteligente: si usaste comas sin querer, las detectará
         const isCSV = text.includes(',') && !text.includes('\t');
         const separator = isCSV ? ',' : '\t';
 
-        // Transformar el texto TSV a un objeto que React pueda leer
+        // Transformar el texto a un objeto que React pueda leer
         const rows = text.split(/\r?\n/);
         const data = rows.slice(1).map((row: string, index: number) => {
           const cols = row.split(separator);
@@ -70,16 +62,15 @@ export default function App() {
             id: index,
             name: (cols[0] || '').trim(),
             category: (cols[1] || 'Otros').trim(),
-            // Separamos los beneficios por punto y coma (;)
             benefits: cols[2] ? cols[2].split(';').map((b: string) => b.trim()) : [],
             address: (cols[3] || '').trim(),
             phone: (cols[4] || '').trim(),
             whatsapp: (cols[5] || '').trim()
           };
-        }).filter((item: any) => item.name !== ''); // Filtrar filas vacías
+        }).filter((item: any) => item.name !== ''); 
 
         if (data.length === 0) {
-          throw new Error('Se conectó a Google, pero la hoja parece estar vacía o sin datos válidos.');
+          throw new Error('Se conectó a Google, pero la hoja parece estar vacía o sin datos.');
         }
 
         setConveniosData(data);
@@ -94,11 +85,11 @@ export default function App() {
     fetchDatos();
   }, []);
 
-  // Filtrar convenios
-  const filteredConvenios = conveniosData.filter(convenio => {
+  const filteredConvenios = conveniosData.filter((convenio: any) => {
+    const searchLower = searchTerm.toLowerCase();
     const matchesSearch = 
-      convenio.name.toLowerCase().includes(searchTerm.toLowerCase()) || 
-      convenio.benefits.some((b: string) => b.toLowerCase().includes(searchTerm.toLowerCase()));
+      convenio.name.toLowerCase().includes(searchLower) || 
+      convenio.benefits.some((b: string) => b.toLowerCase().includes(searchLower));
       
     const matchesCategory = activeCategory === 'Todos' || convenio.category === activeCategory;
     
@@ -112,7 +103,6 @@ export default function App() {
       <header className="bg-white shadow-sm sticky top-0 z-10">
         <div className="max-w-md mx-auto p-4 flex flex-col items-center border-b-4 border-[#0f766e]">
           
-          {/* AQUÍ ESTÁ TU LOGO */}
           <img 
             src="/logopng.jpg" 
             alt="Logo Bienestar APS CMVM" 
@@ -187,7 +177,7 @@ export default function App() {
             <p className="text-red-600 text-sm mb-4">{errorMsg}</p>
           </div>
         ) : filteredConvenios.length > 0 ? (
-          filteredConvenios.map((convenio) => (
+          filteredConvenios.map((convenio: any) => (
             <div key={convenio.id} className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden transition-all hover:shadow-md">
               <div className="p-4">
                 <div className="flex items-center gap-3 mb-3">
@@ -219,7 +209,6 @@ export default function App() {
                     </div>
                   )}
                   
-                  {/* BOTONES DE ACCIÓN */}
                   <div className="flex gap-2 mt-3">
                     {convenio.whatsapp && (
                       <a 
