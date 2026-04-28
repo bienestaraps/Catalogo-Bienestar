@@ -34,7 +34,7 @@ export default function App() {
   useEffect(() => {
     const fetchDatos = async () => {
       try {
-        if (GOOGLE_SHEET_TSV_URL === 'AQUI_PEGA_TU_ENLACE_DE_GOOGLE_SHEETS') {
+        if (GOOGLE_SHEET_TSV_URL === 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTrSr2s24UwlJychVsRrNlDxRjnAeaEIxJPLI9ngHIa3n3PITGiozOAPAe5YY1yRjB9rLGKTnWHGVoy/pub?output=tsv') {
           setLoading(false);
           return;
         }
