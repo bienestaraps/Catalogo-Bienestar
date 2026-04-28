@@ -107,7 +107,9 @@ export default function App() {
   const filteredConvenios = conveniosData.filter((convenio) => {
     const matchesSearch =
       convenio.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      convenio.benefits.some((b) =>
+     convenio.benefits.some((b: string) =>
+   b.toLowerCase().includes(searchTerm.toLowerCase())
+);
         b.toLowerCase().includes(searchTerm.toLowerCase())
       );
     const matchesCategory =
