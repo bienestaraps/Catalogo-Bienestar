@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { 
   Search, Phone, MapPin, HeartPulse, Smile, Eye, 
   Sparkles, Dumbbell, Dog, UtensilsCrossed, 
-  BriefcaseMedical, MessageCircle, Info, Loader2, ShieldPlus
+  BriefcaseMedical, MessageCircle, Info, Loader2, ShieldPlus, SearchAlert
 } from 'lucide-react';
 
 // === Tu link de Google Sheets (Publicado como TSV) ===
@@ -20,7 +20,8 @@ const getIconForCategory = (category?: string) => {
     case 'estética': return <Sparkles className="text-pink-500" />;
     case 'bienestar': return <HeartPulse className="text-orange-500" />;
     case 'mascotas': return <Dog className="text-amber-700" />;
-    default: return <UtensilsCrossed className="text-purple-500" />;
+    case 'otros': return <SearchAlert className="text-red-700" />;
+    default: return <SearchAlert className="text-red-700" />;
   }
 };
 
