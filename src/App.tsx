@@ -18,8 +18,7 @@ import {
 
 // === Pega aquí tu link de Google Sheets (Publicado como TSV) ===
 const GOOGLE_SHEET_TSV_URL =
-  "https://docs.google.com/spreadsheets/d/e/2PACX-1vTrSr2s24UwlJychVsRrNlDxRjnAeaEIxJPLI9ngHIa3n3PITGiozOAPAe5YY1yRjB9rLGKTnWHGVoy/pub?output=tsv";
-
+  'https://docs.google.com/spreadsheets/d/e/2PACX-1vTrSr2s24UwlJychVsRrNlDxRjnAeaEIxJPLI9ngHIa3n3PITGiozOAPAe5YY1yRjB9rLGKTnWHGVoy/pub?output=tsv';
 const categories = [
   "Todos",
   "Salud",
