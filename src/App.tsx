@@ -66,7 +66,6 @@ export default function App() {
             category: (cols[1] || 'Otros').trim(),
             benefits: cols[2] ? cols[2].split(';').map((b: string) => b.trim()) : [],
             address: (cols[3] || '').trim(),
-            phone: (cols[4] || '').trim(),
             whatsapp: (cols[5] || '').trim()
           };
         }).filter((item: any) => item.name !== ''); 
