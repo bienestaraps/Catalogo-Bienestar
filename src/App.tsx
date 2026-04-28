@@ -32,7 +32,7 @@ const categories = [
 ];
 
 // Función para asignar un icono según la categoría
-const getIconForCategory = (category) => {
+const getIconForCategory = (category?: string) => {
   switch (category?.toLowerCase()) {
     case "salud":
       return <BriefcaseMedical className="text-blue-500" />;
