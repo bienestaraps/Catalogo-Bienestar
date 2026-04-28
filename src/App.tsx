@@ -104,7 +104,7 @@ export default function App() {
         <div className="max-w-md mx-auto p-4 flex flex-col items-center border-b-4 border-[#0f766e]">
           
           <img 
-            src="/logopng.jpg" 
+            src="/logopng.png" 
             alt="Logo Bienestar APS CMVM" 
             className="w-32 h-auto object-contain mb-3"
           />
