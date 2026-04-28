@@ -104,19 +104,15 @@ export default function App() {
   }, []);
 
   // Filtrar convenios
-  const filteredConvenios = conveniosData.filter((convenio) => {
-    const matchesSearch =
-      convenio.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-     convenio.benefits.some((b: string) =>
-   b.toLowerCase().includes(searchTerm.toLowerCase())
-);
-        b.toLowerCase().includes(searchTerm.toLowerCase())
-      );
-    const matchesCategory =
-      activeCategory === "Todos" || convenio.category === activeCategory;
+  const filteredConvenios = conveniosData.filter(convenio => {
+    const matchesSearch = 
+      convenio.name.toLowerCase().includes(searchTerm.toLowerCase()) || 
+      convenio.benefits.some((b: string) => b.toLowerCase().includes(searchTerm.toLowerCase()));
+      
+    const matchesCategory = activeCategory === 'Todos' || convenio.category === activeCategory;
+    
     return matchesSearch && matchesCategory;
   });
-
   return (
     <div className="min-h-screen bg-[#FDFBF7] font-sans text-gray-800 pb-20">
       {/* HEADER PRINCIPAL */}
