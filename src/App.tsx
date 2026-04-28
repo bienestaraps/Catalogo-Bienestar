@@ -2,17 +2,18 @@ import React, { useState, useEffect } from 'react';
 import { 
   Search, Phone, MapPin, HeartPulse, Smile, Eye, 
   Sparkles, Dumbbell, Dog, UtensilsCrossed, 
-  BriefcaseMedical, MessageCircle, Info, Loader2
+  BriefcaseMedical, MessageCircle, Info, Loader2, shield-plus
 } from 'lucide-react';
 
 // === Tu link de Google Sheets (Publicado como TSV) ===
 const GOOGLE_SHEET_TSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTrSr2s24UwlJychVsRrNlDxRjnAeaEIxJPLI9ngHIa3n3PITGiozOAPAe5YY1yRjB9rLGKTnWHGVoy/pub?output=tsv';
 
-const categories = ['Todos', 'Salud', 'Dental', 'Ópticas', 'Estética', 'Bienestar', 'Mascotas', 'Otros'];
+const categories = ['Todos', 'Seguros','Salud', 'Dental', 'Ópticas', 'Estética', 'Bienestar', 'Mascotas', 'Otros'];
 
 // Función para asignar un icono según la categoría
 const getIconForCategory = (category?: string) => {
   switch(category?.toLowerCase()) {
+    case 'seguro': return <BriefcaseMedical className="text-green-500" />;
     case 'salud': return <BriefcaseMedical className="text-blue-500" />;
     case 'dental': return <Smile className="text-teal-500" />;
     case 'ópticas': return <Eye className="text-indigo-500" />;
