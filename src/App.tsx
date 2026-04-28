@@ -52,7 +52,7 @@ const getIconForCategory = (category?: string) => {
 };
 
 export default function App() {
-  const [conveniosData, setConveniosData] = useState([]);
+  const [conveniosData, setConveniosData] = useState<any[]>([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [activeCategory, setActiveCategory] = useState("Todos");
   const [loading, setLoading] = useState(true);
