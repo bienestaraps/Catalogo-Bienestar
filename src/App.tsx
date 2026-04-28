@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { 
   Search, Phone, MapPin, HeartPulse, Smile, Eye, 
   Sparkles, Dumbbell, Dog, UtensilsCrossed, 
-  BriefcaseMedical, MessageCircle, Info, Loader2, shieldplus
+  BriefcaseMedical, MessageCircle, Info, Loader2, shield
 } from 'lucide-react';
 
 // === Tu link de Google Sheets (Publicado como TSV) ===
@@ -13,7 +13,7 @@ const categories = ['Todos', 'Seguros','Salud', 'Dental', 'Ópticas', 'Estética
 // Función para asignar un icono según la categoría
 const getIconForCategory = (category?: string) => {
   switch(category?.toLowerCase()) {
-    case 'seguros': return <shieldplus className="text-green-500" />;
+    case 'seguros': return <shield className="text-green-500" />;
     case 'salud': return <BriefcaseMedical className="text-blue-500" />;
     case 'dental': return <Smile className="text-teal-500" />;
     case 'ópticas': return <Eye className="text-indigo-500" />;
