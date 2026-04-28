@@ -71,7 +71,7 @@ export default function App() {
         const text = await response.text();
 
         // Transformar el texto TSV a un objeto que React pueda leer
-        const rows = text.split("\n");
+      const rows = text.split(/\r?\n/);
         const data = rows
           .slice(1)
           .map((row, index) => {
