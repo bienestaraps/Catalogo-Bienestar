@@ -213,7 +213,7 @@ export default function App() {
                 </div>
 
                 <div className="space-y-2 mb-4">
-                  {convenio.benefits.map((benefit, index) => (
+                 {convenio.benefits.map((benefit: string, index: number) => (
                     <div
                       key={index}
                       className="flex items-start gap-2 text-sm text-gray-600"
